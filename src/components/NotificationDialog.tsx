@@ -35,7 +35,7 @@ export function NotificationDialog() {
     // Get current user's email
     supabase.auth.getUser().then(({ data: { user } }) => {
       if (user) {
-        setCurrentUserEmail(user.email);
+        setCurrentUserEmail(user?.email || null);
       }
     });
   }, []);

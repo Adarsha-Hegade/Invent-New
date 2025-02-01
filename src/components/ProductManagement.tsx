@@ -16,9 +16,12 @@ import type { Database } from '@/lib/database.types';
 type Product = Database['public']['Tables']['products']['Row'];
 type Manufacturer = Database['public']['Tables']['manufacturers']['Row'];
 type Category = Database['public']['Tables']['categories']['Row'];
-
+type ProductWithRelations = Product & {
+  manufacturer?: Manufacturer;
+  category?: Category;
+};
 export function ProductManagement() {
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<ProductWithRelations[]>([]);
   const [manufacturers, setManufacturers] = useState<Manufacturer[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -51,12 +54,11 @@ export function ProductManagement() {
   const loadProducts = async () => {
     try {
       const { data, error } = await supabase
-        .from('products')
-        .select('*, manufacturer:manufacturer_id(*), category:category_id(*)')
-        .order('name');
-      
-      if (error) throw error;
-      if (data) setProducts(data);
+  .from('products')
+  .select('*, manufacturer:manufacturer_id(*), category:category_id(*)');
+
+if (error) throw error;
+if (data) setProducts(data as ProductWithRelations[]);
     } catch (error) {
       showErrorToast('product', 'read', error);
     }

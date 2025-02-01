@@ -138,8 +138,8 @@ export function ManufacturerManagement() {
       setIsDialogOpen(false);
       setEditingManufacturer(null);
       reset();
-    } catch (error: any) {
-      toast.error(error.message);
+    } catch (error: Error | unknown) {
+      toast.error(error instanceof Error ? error.message : 'An unexpected error occurred');
     }
   };
 
@@ -165,8 +165,8 @@ export function ManufacturerManagement() {
 
       toast.success('Manufacturer deleted successfully');
       await loadManufacturers();
-    } catch (error: never) {
-      toast.error(error.message);
+    } catch (error: Error | unknown) {
+      toast.error(error instanceof Error ? error.message : 'An unexpected error occurred');
     }
   };
 

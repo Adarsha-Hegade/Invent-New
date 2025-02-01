@@ -69,7 +69,7 @@ export function ProductForm({ product, manufacturers, categories, onSubmit, isLo
         <div className="space-y-2">
           <label>Manufacturer</label>
           <Select
-            value={watch('manufacturer_id')}
+             value={watch('manufacturer_id') || undefined}
             onValueChange={(value) => setValue('manufacturer_id', value)}
             disabled={isLoading}
           >
@@ -88,8 +88,8 @@ export function ProductForm({ product, manufacturers, categories, onSubmit, isLo
         <div className="space-y-2">
           <label>Category</label>
           <Select
-            value={watch('category_id')}
-            onValueChange={(value) => setValue('category_id', value)}
+           value={watch('category_id') || undefined}
+           onValueChange={(value) => setValue('category_id', value)}
             disabled={isLoading}
           >
             <SelectTrigger>

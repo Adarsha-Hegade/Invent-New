@@ -38,7 +38,7 @@ export function BookingForm({ customers, products, onSubmit, initialData, onCanc
   const [searchQuery, setSearchQuery] = useState('');
   const [showProductSearch, setShowProductSearch] = useState(false);
 
-  const { register, handleSubmit, watch, setValue, formState: { errors } } = useForm<BookingFormData>({
+  const { handleSubmit, watch, setValue, formState: { errors } } = useForm<BookingFormData>({
     defaultValues: initialData || {
       status: 'pending',
       items: []

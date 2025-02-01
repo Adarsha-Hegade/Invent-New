@@ -1,13 +1,14 @@
 import { toast } from 'sonner';
 
-type EntityType = 'product' | 'booking' | 'customer' | 'manufacturer';
-type ActionType = 'create' | 'update' | 'delete';
+export type EntityType = 'product' | 'booking' | 'customer' | 'manufacturer' | 'category';
+export type ActionType = 'create' | 'update' | 'delete' | 'read';
 
 const entityNames: Record<EntityType, string> = {
   product: 'Product',
   booking: 'Booking',
   customer: 'Customer',
-  manufacturer: 'Manufacturer'
+  manufacturer: 'Manufacturer',
+  category: 'Category'
 };
 
 export const showSuccessToast = (entity: EntityType, action: ActionType) => {
@@ -18,7 +19,7 @@ export const showSuccessToast = (entity: EntityType, action: ActionType) => {
 
 export const showErrorToast = (entity: EntityType, action: ActionType, error?: any) => {
   const entityName = entityNames[entity];
-  const actionText = action === 'create' ? 'create' : action === 'update' ? 'update' : 'delete';
+  const actionText = action === 'create' ? 'create' : action === 'update' ? 'update' : action === 'delete' ? 'delete' : 'fetch';
   const errorMessage = error?.message || `Unable to ${actionText} ${entityName.toLowerCase()}`;
   toast.error(`Error: ${errorMessage}`);
 };
