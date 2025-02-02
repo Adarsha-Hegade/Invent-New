@@ -407,10 +407,16 @@ if (data) setProducts(data as ProductWithRelations[]);
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold">Product Management</h2>
         <div className="flex gap-2">
-          <Button variant="outline" onClick={handleExport}>
+          
+
+
+
+         
+            <Button variant="outline" onClick={handleExport}>
             <Upload className="w-4 h-4 mr-2" />
             Export CSV
           </Button>
+        
           <Button variant="outline" onClick={() => document.getElementById('csvUpload')?.click()}>
             <Upload className="w-4 h-4 mr-2" />
             Import CSV

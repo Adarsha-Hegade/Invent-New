@@ -225,7 +225,7 @@ export function ProductList({ products, onEdit, onDelete }: ProductListProps) {
 
   const getStockStatus = (product: Product) => {
     if (product.available_stock <= 0) return { status: 'Out of Stock', variant: 'destructive' as const };
-    if (product.available_stock <= 5) return { status: 'Low Stock', variant: 'warning' as const };
+    if (product.available_stock <= 10) return { status: 'Low Stock', variant: 'destructive' as const };
     return { status: 'In Stock', variant: 'default' as const };
   };
 

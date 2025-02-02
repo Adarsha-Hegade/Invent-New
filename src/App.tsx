@@ -3,7 +3,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { StatCard } from '@/components/StatCard';
 import { Overview } from '@/components/Overview';
 import { RecentSales } from '@/components/RecentSales';
-import { ProductList } from '@/components/ProductList';
+//import { ProductList } from '@/components/products/ProductList';
 import { DashboardHeader } from '@/components/DashboardHeader';
 import { DashboardShell } from '@/components/DashboardShell';
 import { ProductManagement } from '@/components/ProductManagement';
@@ -22,7 +22,7 @@ type DashboardStats = {
 };
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState('dashboard');
+  const [activeTab, setActiveTab] = useState('products');
   const [session, setSession] = useState<Session | null>(null);
   const [stats, setStats] = useState<DashboardStats>({
     totalProducts: 0,
@@ -30,7 +30,7 @@ export default function App() {
     totalBookings: 0,
     outOfStock: 0,
   });
-
+console.log(session?.user.email);
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
@@ -100,14 +100,26 @@ export default function App() {
     <DashboardShell>
       <DashboardHeader session={session} />
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
-        <TabsList>
+        {/* <TabsList>
           <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
           <TabsTrigger value="products">Products</TabsTrigger>
           <TabsTrigger value="manufacturers">Manufacturers</TabsTrigger>
           <TabsTrigger value="customers">Customers</TabsTrigger>
           <TabsTrigger value="bookings">Bookings</TabsTrigger>
-        </TabsList>
+        </TabsList> */}
+<TabsList>
+        <TabsTrigger value="products">Products</TabsTrigger>
+        <TabsTrigger value="customers">Customers</TabsTrigger>
+        <TabsTrigger value="bookings">Bookings</TabsTrigger>
 
+        {/* Show extra tabs only for specific users */}
+        {session.user.email === 'jitendra@magnific.in' || session.user.email === 'adarshahegade@gmail.com' ? (
+          <>
+            <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
+            <TabsTrigger value="manufacturers">Manufacturers</TabsTrigger>
+          </>
+        ) : null}
+      </TabsList>
         <TabsContent value="dashboard" className="space-y-4">
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             <StatCard
@@ -151,8 +163,9 @@ export default function App() {
               </div>
             </div>
           </div>
-          <ProductList />
+       
         </TabsContent>
+
 
         <TabsContent value="products">
           <ProductManagement />
